@@ -2,6 +2,8 @@
 /**
  * Config file for service to process requests from buttons and panels.
  *
+ * Rename this file to "config.php" and adjust to suit.
+ *
  * There are currently 2 service types support: MQTT and HTTP. They have
  * different configuration requirements so the parameters required are
  * different.
