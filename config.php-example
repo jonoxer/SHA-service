@@ -10,16 +10,18 @@
  *
  * The key is a compound of the panel ID and the button ID, like "2-32".
  */
-
 $config = array();
+$config['MQTTHost'] = "192.168.1.111";
+
+$device = array();
 /* ******* MQTT Example Device ****** */
-$config['2-42'] = array(
+$device['2-42'] = array(
 		"Type" => "MQTT",
 		"Topic" => "device/1/led",
 		"Message" => "1",
 		"Response" => "LED Green"
 		);
-$config['2-43'] = array(
+$device['2-43'] = array(
 		"Type" => "MQTT",
 		"Topic" => "device/1/led",
 		"Message" => "0",
@@ -27,12 +29,12 @@ $config['2-43'] = array(
 		);
 
 /* ******* HTTP Example Device ****** */
-$config['2-1'] = array(
+$device['2-1'] = array(
 		"Type" => "HTTP",
 		"URL" => "out5On=0 http://192.168.1.21/control",
 		"Response" => "Kitchen lights on"
 		);
-$config['2-2'] = array(
+$device['2-2'] = array(
 		"Type" => "HTTP",
 		"URL" => "out5Off=0 http://192.168.1.21/control",
 		"Response" => "Kitchen lights off"

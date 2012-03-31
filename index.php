@@ -3,21 +3,21 @@
 </head>
 <body>
 <?php
+require("config.php");
+require_once("phpMQTT/phpMQTT.php");
+
 $buttonId = $_REQUEST['buttonId'];
 //echo "b: $buttonId";
 
-require_once("phpMQTT/phpMQTT.php");
-$mqtt = new phpMQTT("192.168.1.111", 1883, "PHP-MQTT-Client-".$_SERVER['SERVER_ADDR']);
 
-require("config.php");
 
-switch( $config[$buttonId]['Type'])
+switch( $device[$buttonId]['Type'])
 {
 	case "MQTT":
-		publish_to_mqtt( $config[$buttonId]['Topic'], $config[$buttonId]['Message'], $config[$buttonId]['Response'] );
+		publish_to_mqtt( $device[$buttonId]['Topic'], $device[$buttonId]['Message'], $device[$buttonId]['Response'] );
 		break;
 	case "HTTP":
-		publish_to_http( $config[$buttonId]['URL'], $config[$buttonId]['Response'] );
+		publish_to_http( $device[$buttonId]['URL'], $device[$buttonId]['Response'] );
 		break;
 }
 
@@ -25,7 +25,8 @@ switch( $config[$buttonId]['Type'])
  */
 function publish_to_mqtt( $topic, $message, $response )
 {
-	global $mqtt;
+	global $config;
+	$mqtt = new phpMQTT($config['MQTTHost'], 1883, "PHP-MQTT-Client-".$_SERVER['SERVER_ADDR']);
 	if( $mqtt->connect()) {
 		$mqtt->publish( $topic, $message );
 		$mqtt->close();
